@@ -3,7 +3,7 @@ Login
 
 userInfo
 -(NSDictionary *)getUserInfo;
-return = {
+## return = {
     "username": "user123",
     "teleNumber": "12314758269",
     "address": "Lake meixihu, Meixihu Annovation Center",
