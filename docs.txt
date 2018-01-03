@@ -1,5 +1,5 @@
 Login
--(void)login:(NSString *)uid password:(NSString *)password deviceType:deviceType complete:(void(^)(NSError *error))complete;
+-(void)login:(NSString *)uid password:(NSString *)password complete:(void(^)(NSError *error))complete;
 
 userInfo
 -(NSDictionary *)getUserInfo;
