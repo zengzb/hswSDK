@@ -1,0 +1,160 @@
+Login
+-(void)login:(NSString *)uid password:(NSString *)password deviceType:deviceType complete:(void(^)(NSError *error))complete;
+
+userInfo
+-(NSDictionary *)getUserInfo;
+return = {
+    "username": "user123",
+    "teleNumber": "12314758269",
+    "address": "Lake meixihu, Meixihu Annovation Center",
+    "account": "account1",
+    "currentMode": "网络畅游模式",
+    "expiration": "2018-02-02 10:10:10"
+}
+
+userInfo update
+-(void)updateUserInfo:(NSString *)username address:(NSString *)address complete:(void(^)(NSError *error))complete;
+
+teleNumber update
+-(void)getCodeForTeleNumberUpdate:(NSString *)teleNumber complete:(void(^)(NSString *code NSError *error))complete;
+
+-(void)updateTeleNumber:(NSString *)teleNumber code:(NSString *)code complete:(void(^)(NSError *error))complete;
+
+change password
+-(void)changePsw:(NSString *)oldPsw newPsw:(NSString *)newPsw complete:(void(^)(NSError *error))complete;
+
+
+FEATURES
+get all features 
+-(NSArray *)getFeatures;
+return = ["模式切换", "时段控制", "儿童手机管控", "终端控制", "网络解锁", "黑白名单", "上网奖励卡"]
+
+Mode Switch
+get all modes
+-(NSArray *)getArray;
+return = [
+    {"name": "网络畅游模式", selected: false}
+    {"name": "教育资源模式", selected: false}
+    {"name": "不良内容拦截模式", selected: true}
+    {"name": "奖励卡模式", selected: false}
+]
+
+switch mode 
+-(void)switchMode:(NSString *)modeName complete:(void(^)(NSError *error))complete;
+
+Time Schedule
+get current time schedule
+-(void)getTimeSchedule:(void(^)(NSString *schedule))complete;
+## schedule = "00000000000000000000000000000000000001111100000000000011111000000000000011100000000000000000000000000000000000000000000"
+## 0 represents as unselected; 1 as selected;
+
+update time Schedule
+-(void)updateTimeSchedule:(NSString *)timeSchedule complete:(void(^)(NSError *error))complete;
+## timeSchedule = "00000000000000000000000000000000000001111100000000000011111000000000000011100000000000000000000000000000000000000000000"
+## 0 represents as unselected; 1 as selected;
+
+Children Devices Management
+-(void)getChildrenDevices:(void(^)(NSArray *devices NSError *error))complete;
+## devices = [
+##    {"id": "123", teleNumber: "12345678912", "longitude": "101.11", "latitude": "53.12"},
+##    {"id": "123", teleNumber: "12345678912", "longitude": "101.11", "latitude": "53.12"}
+## ]
+
+get code
+-(void)getCodeForAddChildDeivce:(NSString *)teleNumber complete:(void(^)(NSString *code NSError *error))complete;
+
+add child deivce
+-(void)addChildDevice:(NSString *)teleNumber code:(NSString *)code complete:(void(^)(NSError *error))complete;
+
+Terminal Control
+get all terminal types
+-(void)getTerminalTypes:(void(^)(NSArray *types NSError *error))complete;
+## types = [
+    {"type": "电脑", inControl: false},
+    {"type": "手机", inControl: true},
+    {"type": "平板电脑", inControl: true},
+    {"type": "电视盒子", inControl: false},
+]
+
+set terminalTypes
+-(void)setTerminalTypes:(NSArray *)types complete:(void(^)(NSError *error))complete;
+## types = [
+    {"type": "电脑", inControl: false},
+    {"type": "手机", inControl: true},
+    {"type": "平板电脑", inControl: true},
+    {"type": "电视盒子", inControl: false},
+]
+
+Network Lock
+get network lock time 
+-(void)getNLTime:(void(^)(int time NSError *error))complete;
+## 1 min = 1; 10 min = 10; 1h = 60 etc etc.
+
+set network lock time 
+-(void)setNLTime:(int) time complete:(void(^)(NSError *error))complete;
+
+Black&White List 
+get white list
+-(void)getWhiteList:(void(^)(NSArray *list NSError *error))complete;
+## list = [
+    {"id": 123, "icon": "Public/app/171.png" "status": "生效", "category": "体育", "name": "ttt", "type": "url"},  
+    {"id": 123, "icon": "Public/app/171.png" "status": "生效", "category": "体育", "name": "ttt", "type": "url"},  
+    {"id": 123, "icon": "Public/app/171.png" "status": "生效", "category": "体育", "name": "ttt", "type": "app"},  
+    {"id": 123, "icon": "Public/app/171.png" "status": "生效", "category": "体育", "name": "ttt", "type": "app"},  
+]
+
+get black list
+-(void)getBlackList:(void(^)(NSArray *list NSError *error))complete;
+## list = [
+    {"id": 123, "status": "生效", "category": "体育", "name": "ttt"},  
+    {"id": 123, "status": "生效", "category": "体育", "name": "ttt"}  
+]
+
+get review list
+-(void)getReviewList:(void(^)(NSArray *list NSError *error))complete;
+## list = [
+    {"id": 123, "status": "生效", "category": "体育", "name": "ttt"},  
+    {"id": 123, "status": "生效", "category": "体育", "name": "ttt"}  
+]
+
+get apps list 
+-(void)getAppList:(void(^)(NSArray *list NSError *error))complete;
+## list = [
+    {"id": 171, "icon": "/Public/app/171.png", "category": "新闻", "name": "网易新闻"},
+    {"id": 171, "icon": "/Public/app/171.png", "category": "新闻", "name": "网易新闻"},
+    {"id": 171, "icon": "/Public/app/171.png", "category": "新闻", "name": "网易新闻"}
+]
+
+add app 
+-(void)addApps:(NSString *)appIDListString complete:(void(^)(NSError *error))complete;
+## appIDListString = "12,23,45,54,88,102";
+
+add url
+-(void)addWhiteUrl:(NSString *)url name:(NSString *)name category:(NSString *)category complete:(void(^)(NSError *error))complete;
+-(void)addBlackUrl:(NSString *)url name:(NSString *)name category:(NSString *)category complete:(void(^)(NSError *error))complete;
+
+remove 
+-(void)removeFromWhiteList:(NSArray *)list complete:(void(^)(NSError *error))complete;
+## list = [
+    {"id": 123, "type": "app"}, 
+    {"id": 123, "type": "url"}, 
+]
+-(void)removeFromBlackList:(NSString *)urlListString complete:(void(^)(NSError *error))complete;
+## urlListString = "11,23,45,66";
+
+Reward Cards
+get all reward cards 
+-(void)getRewardCards:(void(^)(NSArray *List NSError *error))complete;
+## List = [
+    {"id": 123, "number": 1001, expiration: "2018-03-03 23:59:59", duration: 3600}, 
+    {"id": 123, "number": 1001, expiration: "2018-03-03 23:59:59", duration: 3600}, 
+    {"id": 123, "number": 1001, expiration: "2018-03-03 23:59:59", duration: 3600} 
+]
+
+add reward card 
+-(void)addRewardCard:(NSString *)password duration:(NSString *)duration expiration:(NSString *)expiration complete:(void(^)(NSError *error))complete;
+
+remove reward card 
+-(void)removeRewardCard:(NSString *)removedIDListString complete:(void(^)(NSError *error))complete;
+## removedIDListString = "11,233,44,55";
+
