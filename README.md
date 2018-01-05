@@ -5,6 +5,5 @@
 
 如要使用好上网的所有服务，首先需要使用宽带账号或宽带绑定手机号与对应密码通过登录接口登录
 
-```
-+(void)login:(NSString *)uid password:(NSString *)password complete:(void(^)(hswNWResponse *response))complete;
-```
+```objective-c
++(void)login:(NSString *)uid password:(NSString *)password complete:(void(^)(hswNWResponse *response))complete;```
