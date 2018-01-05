@@ -17,11 +17,11 @@
 
 登录后，可以通过‘获取用户接口’获得用户的登记信息； 用于存储个人的基本信息，比如 用户名，电话号码，地址， 当前的网络模式，宽带账号和账号过期时间
 
-##### 获取用户接口
+##### 获取用户接口:
 ```objective-c
 hswUser *user = [hswAPI getUserInfo];
 ```
-##### hswUser的属性
+##### hswUser的属性:
 ```objective-c
 @interface hswUser: NSObject
 @property (nonatomic,retain) NSString *username;
