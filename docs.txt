@@ -1,24 +1,18 @@
+
 Login
--(void)login:(NSString *)uid password:(NSString *)password complete:(void(^)(NSError *error))complete;
++(void)login:(NSString *)uid password:(NSString *)password complete:(void(^)(hswNWResponse *response))complete;
 
 userInfo
--(NSDictionary *)getUserInfo;
-## return = {
-    "username": "user123",
-    "teleNumber": "12314758269",
-    "address": "Lake meixihu, Meixihu Annovation Center",
-    "account": "account1",
-    "currentMode": "网络畅游模式",
-    "expiration": "2018-02-02 10:10:10"
-}
+-(hswUser *)getUserInfo;
+
 
 userInfo update
--(void)updateUserInfo:(NSString *)username address:(NSString *)address complete:(void(^)(NSError *error))complete;
+-(void)updateUserInfo:(NSString *)username address:(NSString *)address complete:(void(^)(hswNWResponse *response))complete;
 
 teleNumber update
--(void)getCodeForTeleNumberUpdate:(NSString *)teleNumber complete:(void(^)(NSString *code NSError *error))complete;
+-(void)getCodeForTeleNumberUpdate:(NSString *)teleNumber complete:(void(^)(hswNWResponse *response))complete;
 
--(void)updateTeleNumber:(NSString *)teleNumber code:(NSString *)code complete:(void(^)(NSError *error))complete;
+-(void)updateTeleNumber:(NSString *)teleNumber code:(NSString *)code complete:(void(^)(hswNWResponse *response))complete;
 
 change password
 -(void)changePsw:(NSString *)oldPsw newPsw:(NSString *)newPsw complete:(void(^)(NSError *error))complete;
