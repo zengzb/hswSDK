@@ -52,7 +52,6 @@ hswUser *user = [hswAPI getUserInfo];
 @interface hswNWResponse: NSObject
 @property (nonatomic,assign) BOOL success;
 @property (nonatomic,retain) hswNWError *error;
-@property (nonatomic,retain) NSDictionary *content;
 ```
 
 ##### 查看是否请求成功
