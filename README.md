@@ -81,7 +81,7 @@ if (!response.success) {
 hswUser *user = [hswAPI getUserInfo];
 ```
 
-### 更新用户信息
+### 更新用户信息:
 ```objective-c
 [hswAPI updateUserInfo:@"testHSW" address:@"Lake Meixi Innovation Center, Yuelu, Changsha" complete:^(hswNWResponse *response){
     if (!response.success){
@@ -89,5 +89,16 @@ hswUser *user = [hswAPI getUserInfo];
     }
     hswUser *user = [hswAPI getUserInfo];
     NSLog(@"username: %@\n", user.username);
+}];
+```
+
+### 发送绑定手机验证码:
+```objective-c
+[hswAPI sendCodeForTeleNumberUpdate:@"17773142743" complete:^(hswNWResponse *response){
+    if (!response.success){
+        NSLog(@"error: %@\n", response.error.description);
+        return;
+    }
+    NSLog(@"验证码发送成功");
 }];
 ```
