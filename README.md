@@ -81,6 +81,11 @@ if (!response.success) {
 hswUser *user = [hswAPI getUserInfo];
 ```
 
+### 查看用户是否登录:
+```objective-c
+BOOL hasAuthenticated = [hswAPI hasAuthenticated];
+```
+
 ### 更新用户信息:
 ```objective-c
 [hswAPI updateUserInfo:@"testHSW" address:@"Lake Meixi Innovation Center, Yuelu, Changsha" complete:^(hswNWResponse *response){
