@@ -97,7 +97,7 @@ BOOL hasAuthenticated = [hswAPI hasAuthenticated];
 }];
 ```
 
-### 发送绑定手机验证码:
+### 更改手机号时，发送绑定手机验证码:
 ```objective-c
 [hswAPI sendCodeForTeleNumberUpdate:@"177777777777" complete:^(hswNWResponse *response){
     if (!response.success){
