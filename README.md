@@ -23,12 +23,10 @@
 
 登录成功后，可以通过‘获取用户接口’获得用户的登记信息； 用户个人的基本信息，比如 用户名，电话号码，地址， 当前的网络模式，宽带账号和账号过期时间
 
+### 公共对象(Public Objects)
 
 
-##### 获取用户接口:
-```objective-c
-hswUser *user = [hswAPI getUserInfo];
-```
+
 ##### hswUser的属性:
 ```objective-c
 @interface hswUser: NSObject
@@ -68,4 +66,24 @@ if (!response.success) {
     NSLog(@"error: %@\n", response.error.description);
     //e.g. 账号或者密码错误
 }
+```
+
+# API
+
+
+
+### 获取用户接口:
+```objective-c
+hswUser *user = [hswAPI getUserInfo];
+```
+
+### 更新用户信息
+```objective-c
+[hswAPI updateUserInfo:@"testHSW" address:@"Lake Meixi Innovation Center, Yuelu, Changsha" complete:^(hswNWResponse *response){
+    if (!response.success){
+        NSLog(@"error: %@\n", response.error.description);
+    }
+    hswUser *user = [hswAPI getUserInfo];
+    NSLog(@"username: %@\n", user.username);
+}];
 ```
