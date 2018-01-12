@@ -12,7 +12,7 @@
 如要使用好上网的所有服务，首先需要使用宽带账号或宽带绑定手机号与对应密码通过登录接口登录
 
 ```objective-c
-[hswAPI login:@"test2" password:@"888888" complete:^(hswNWResponse *response){
+[hswAPI login:@"test2" password:@"zzb12345678" complete:^(hswNWResponse *response){
     if (!response.success) {
         NSLog(@"error: %@\n", response.error.description);
     }
@@ -94,7 +94,7 @@ hswUser *user = [hswAPI getUserInfo];
 
 ### 发送绑定手机验证码:
 ```objective-c
-[hswAPI sendCodeForTeleNumberUpdate:@"17773142743" complete:^(hswNWResponse *response){
+[hswAPI sendCodeForTeleNumberUpdate:@"177777777777" complete:^(hswNWResponse *response){
     if (!response.success){
         NSLog(@"error: %@\n", response.error.description);
         return;
