@@ -5,7 +5,7 @@
 
 
 
-### 登录接口
+#### 登录接口
 
 
 
@@ -27,7 +27,7 @@
 
 
 
-### hswUser的属性
+#### hswUser的属性
 
 
 
@@ -45,7 +45,7 @@
 如果登录失败，则可以通过hswNWResponse对象，了解具体失败的原因
 
 
-### hswNWResponse
+#### hswNWResponse
 
 
 
@@ -80,17 +80,17 @@ if (!response.success) {
 
 
 
-### 获取用户接口:
+#### 获取用户接口:
 ```objective-c
 hswUser *user = [hswAPI getUserInfo];
 ```
 
-### 查看用户是否登录:
+#### 查看用户是否登录:
 ```objective-c
 BOOL hasAuthenticated = [hswAPI hasAuthenticated];
 ```
 
-### 更新用户信息:
+#### 更新用户信息:
 ```objective-c
 [hswAPI updateUserInfo:@"testHSW" address:@"Lake Meixi Innovation Center, Yuelu, Changsha" complete:^(hswNWResponse *response){
     if (!response.success){
@@ -101,7 +101,7 @@ BOOL hasAuthenticated = [hswAPI hasAuthenticated];
 }];
 ```
 
-### 更改手机号时，发送绑定手机验证码:
+#### 更改手机号时，发送绑定手机验证码:
 ```objective-c
 [hswAPI sendCodeForTeleNumberUpdate:@"177777777777" complete:^(hswNWResponse *response){
     if (!response.success){
@@ -112,7 +112,7 @@ BOOL hasAuthenticated = [hswAPI hasAuthenticated];
 }];
 ```
 
-### 更改绑定手机号
+#### 更改绑定手机号
 ```objective-c
 [hswAPI updateTeleNumber:@"177777777777" code:@"123456" complete:^(hswNWResponse *response){
     if (!response.success){
@@ -123,7 +123,7 @@ BOOL hasAuthenticated = [hswAPI hasAuthenticated];
 }];
 ```
 
-### 更改密码
+#### 更改密码
 ```objective-c
 //密码格式至少6位，且必须包含数字和字母
 [hswAPI changePsw:@"zzb123456" newPsw:@"zzb123456" complete:^(hswNWResponse *response){
