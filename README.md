@@ -134,3 +134,9 @@ BOOL hasAuthenticated = [hswAPI hasAuthenticated];
     NSLog(@"修改密码成功");
 }];
 ```
+
+## 功能
+```objective-c
+NSArray *features = [hswAPI getFeatures];
+NSLog(@"共有%lu大功能", (unsigned long)features.count);
+```
