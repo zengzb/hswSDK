@@ -107,3 +107,26 @@ BOOL hasAuthenticated = [hswAPI hasAuthenticated];
     NSLog(@"验证码发送成功");
 }];
 ```
+
+### 更改绑定手机号
+```objective-c
+[hswAPI updateTeleNumber:@"177777777777" code:@"123456" complete:^(hswNWResponse *response){
+    if (!response.success){
+        NSLog(@"error: %@\n", response.error.description);
+        return;
+    }
+    NSLog(@"修改手机号成功");
+}];
+```
+
+### 更改密码
+```objective-c
+//密码格式至少6位，且必须包含数字和字母
+[hswAPI changePsw:@"zzb123456" newPsw:@"zzb123456" complete:^(hswNWResponse *response){
+    if (!response.success){
+        NSLog(@"error: %@\n", response.error.description);
+        return;
+    }
+    NSLog(@"修改密码成功");
+}];
+```
