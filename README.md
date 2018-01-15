@@ -137,7 +137,7 @@ BOOL hasAuthenticated = [hswAPI hasAuthenticated];
 
 ## 功能
 
-#### 获取所有功能
+#### 获取所有功能列表
 ```objective-c
 NSArray *features = [hswAPI getFeatures];
 NSLog(@"共有%lu大功能", (unsigned long)features.count);
