@@ -3,29 +3,32 @@ Login
 +(void)login:(NSString *)uid password:(NSString *)password complete:(void(^)(hswNWResponse *response))complete;
 
 userInfo
--(hswUser *)getUserInfo;
++(hswUser *)getUserInfo;
 
+Check if user logged
++(BOOL)hasAuthenticated;
 
 userInfo update
--(void)updateUserInfo:(NSString *)username address:(NSString *)address complete:(void(^)(hswNWResponse *response))complete;
++(void)updateUserInfo:(NSString *)username address:(NSString *)address complete:(void(^)(hswNWResponse *response))complete;
 
 teleNumber update
--(void)getCodeForTeleNumberUpdate:(NSString *)teleNumber complete:(void(^)(hswNWResponse *response))complete;
++(void)sendCodeForTeleNumberUpdate:(NSString *)teleNumber complete:(void(^)(hswNWResponse *response))complete;
 
+update telephone number
 -(void)updateTeleNumber:(NSString *)teleNumber code:(NSString *)code complete:(void(^)(hswNWResponse *response))complete;
 
 change password
--(void)changePsw:(NSString *)oldPsw newPsw:(NSString *)newPsw complete:(void(^)(NSError *error))complete;
++(void)changePsw:(NSString *)oldPsw newPsw:(NSString *)newPsw complete:(void(^)(hswNWResponse *response))complete;
 
 
 FEATURES
 get all features 
--(NSArray *)getFeatures;
++(NSArray *)getFeatures;
 return = ["模式切换", "时段控制", "儿童手机管控", "终端控制", "网络解锁", "黑白名单", "上网奖励卡"]
 
 Mode Switch
 get all modes
--(NSArray *)getArray;
++(NSArray *)getModes;
 return = [
     {"name": "网络畅游模式", selected: false}
     {"name": "教育资源模式", selected: false}
