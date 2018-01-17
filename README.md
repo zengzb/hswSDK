@@ -38,7 +38,7 @@
 @property (nonatomic,retain) NSString *teleNumber;
 @property (nonatomic,retain) NSString *address;
 @property (nonatomic,retain) NSString *account;
-@property (nonatomic,retain) NSString *currentMode;
+@property (nonatomic) hswModeType currentMode;
 @property (nonatomic,retain) NSString *expiration;
 ```
 
@@ -72,6 +72,19 @@ if (!response.success) {
 }
 ```
 
+#### 网络模式
+
+```objective-c
+/*! @brief hswModeType enum type
+ */
+typedef enum {
+    hswModeFree, //自由模式
+    hswModeEducation, //教育资源模式
+    hswModeUnheathBlock, //不良内容拦截模式
+    hswModeRewardCard   //奖励卡模式
+} hswModeType;
+```
+
 # 接口(API)
 
 
@@ -83,6 +96,17 @@ if (!response.success) {
 #### 获取用户接口:
 ```objective-c
 hswUser *user = [hswAPI getUserInfo];
+```
+
+#### 获取用户最新信息:
+```objective-c
+[hswAPI getLatestUserInfo:^(hswNWResponse *response){
+    if (!response.success) {
+        NSLog(@"error: %@\n", response.error.description);
+    }
+    hswUser *user = [hswAPI getUserInfo];
+    NSLog(@"username: %@\n", user.username);
+}];
 ```
 
 #### 查看用户是否登录:
@@ -141,4 +165,22 @@ BOOL hasAuthenticated = [hswAPI hasAuthenticated];
 ```objective-c
 NSArray *features = [hswAPI getFeatures];
 NSLog(@"共有%lu大功能", (unsigned long)features.count);
+```
+
+#### 获取网络模式列表
+```objective-c
+NSArray *modes = [hswAPI getModes];
+NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
+```
+
+#### 获取个人最新当前网络模式
+```objective-c
+[hswAPI getCurrentMode:^(hswModeType type, hswNWError *error){
+    if (error != nil) {
+        //如果error不为空， 则默认的type为hswModeFree即网络畅游模式
+        NSLog(@"error: %@\n", error.description);
+        return;
+    }
+    NSLog(@"当前网络模式为%u", type);
+}];
 ```
