@@ -76,6 +76,7 @@ if (!response.success) {
 
 #### 网络模式
 
+##### 网络模式的所有类别
 ```objective-c
 /*! @brief hswModeType enum type
  */
@@ -86,7 +87,7 @@ typedef enum {
     hswModeRewardCard   //奖励卡模式
 } hswModeType;
 ```
-
+##### 网络模式对象的属性和方法
 ```objective-c
 @interface hswModeObject: NSObject
 @property (nonatomic) hswModeType type;
