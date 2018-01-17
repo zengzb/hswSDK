@@ -78,7 +78,7 @@ if (!response.success) {
 /*! @brief hswModeType enum type
  */
 typedef enum {
-    hswModeFree, //自由模式
+    hswModeFree, //网络畅游模式
     hswModeEducation, //教育资源模式
     hswModeUnheathBlock, //不良内容拦截模式
     hswModeRewardCard   //奖励卡模式
