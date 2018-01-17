@@ -40,6 +40,7 @@
 @property (nonatomic,retain) NSString *account;
 @property (nonatomic) hswModeType currentMode;
 @property (nonatomic,retain) NSString *expiration;
+@end
 ```
 
 如果登录失败，则可以通过hswNWResponse对象，了解具体失败的原因
@@ -54,6 +55,7 @@
 @interface hswNWResponse: NSObject
 @property (nonatomic,assign) BOOL success;
 @property (nonatomic,retain) hswNWError *error;
+@end
 ```
 
 ##### 查看是否请求成功
@@ -83,6 +85,22 @@ typedef enum {
     hswModeUnheathBlock, //不良内容拦截模式
     hswModeRewardCard   //奖励卡模式
 } hswModeType;
+```
+
+```objective-c
+@interface hswModeObject: NSObject
+@property (nonatomic) hswModeType type;
+@property (nonatomic,assign) BOOL selected;  //是否被选择
+
+/*! @brief 初始化
+ */
+-(id)initWithType: (hswModeType)type selected:(BOOL)selected;
+
+/*! @brief 获取模式文本名称
+ *  @return 对应模式的名称文本
+ */
+-(NSString *)getModeName;
+@end
 ```
 
 # 接口(API)
