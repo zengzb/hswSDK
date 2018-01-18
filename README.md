@@ -203,3 +203,15 @@ NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
     NSLog(@"当前网络模式为%u", type);
 }];
 ```
+
+#### 模式切换
+```objective-c
+[hswAPI switchMode:hswModeUnheathBlock complete:^(hswNWResponse *response){
+    if (!response.success){
+        NSLog(@"error: %@\n", response.error.description);
+        return;
+    }
+    hswUser *user = [hswAPI getUserInfo];
+    NSLog(@"username: %@\n", user.username);
+}];
+```
