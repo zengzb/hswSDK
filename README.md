@@ -180,19 +180,22 @@ BOOL hasAuthenticated = [hswAPI hasAuthenticated];
 
 ## 功能
 
-#### 获取所有功能列表
+
+#### 网络模式
+
+##### 获取所有功能列表
 ```objective-c
 NSArray *features = [hswAPI getFeatures];
 NSLog(@"共有%lu大功能", (unsigned long)features.count);
 ```
 
-#### 获取网络模式列表
+##### 获取网络模式列表
 ```objective-c
 NSArray *modes = [hswAPI getModes];
 NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
 ```
 
-#### 获取个人最新当前网络模式
+##### 获取个人最新当前网络模式
 ```objective-c
 [hswAPI getCurrentMode:^(hswModeType type, hswNWError *error){
     if (error != nil) {
@@ -204,7 +207,7 @@ NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
 }];
 ```
 
-#### 模式切换
+##### 模式切换
 ```objective-c
 [hswAPI switchMode:hswModeUnheathBlock complete:^(hswNWResponse *response){
     if (!response.success){
