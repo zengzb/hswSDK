@@ -282,7 +282,11 @@ typedef enum {
     
     //保存设置
     [timeSchedule save:^(hswNWResponse *response){
-
+        if (!response.success){
+            NSLog(@"error: %@\n", response.error.description);
+            return;
+        }
+        NSLog(@"保存成功");
     }];
 }];
 ```
