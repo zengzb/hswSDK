@@ -23,6 +23,83 @@
 
 登录成功后，可以通过‘获取用户接口’获得用户的登记信息； 用户个人的基本信息，包括 用户名，电话号码，地址， 当前的网络模式，宽带账号和账号过期时间
 
+
+# 接口(API)
+
+
+
+## 用户信息
+
+#### 更改手机号时，发送绑定手机验证码:
+```objective-c
+[hswAPI sendCodeForTeleNumberUpdate:@"177777777777" complete:^(hswNWResponse *response){
+    if (!response.success){
+        NSLog(@"error: %@\n", response.error.description);
+        return;
+    }
+    NSLog(@"验证码发送成功");
+}];
+```
+
+#### 更改绑定手机号
+```objective-c
+[hswAPI updateTeleNumber:@"177777777777" code:@"123456" complete:^(hswNWResponse *response){
+    if (!response.success){
+        NSLog(@"error: %@\n", response.error.description);
+        return;
+    }
+    NSLog(@"修改手机号成功");
+}];
+```
+
+## 时段控制
+
+#### 获取最新时间管控
+```objective-c
+[hswAPI getCurrentTiemSchedule:^(hswTimeSchedule *timeSchedule, hswNWError *error){
+    if (error != nil) {
+        NSLog(@"error: %@\n", error.description);
+        return;
+    }
+    //查询礼拜天0～8:00AM的时段控制状态
+    BOOL state = [timeSchedule getState:hswTSDayOfWeekSunday hourOfDay:hswTSHourOfDay0To8];
+    NSLog(@"state: %d\n", state);
+    
+    //查询礼拜五从0～2:00 PM的时段控制状态
+    NSArray *arrayOfStates = [timeSchedule getStateFrom:hswTSHourOfDay0To8 To:hswTSHourOfDay14 On:hswTSDayOfWeekFriday];
+    NSLog(@"arrayOfStates length: %lu", (unsigned long)arrayOfStates.count);
+    
+    //设置礼拜一8:00AM～9:00AM一个小时的时段管控为开放状态
+    [timeSchedule setState:YES dayOfWeek:hswTSDayOfWeekMonday hourOfDay:hswTSHourOfDay9];
+    
+    //保存设置
+    [timeSchedule save:^(hswNWResponse *response){
+        if (!response.success){
+            NSLog(@"error: %@\n", response.error.description);
+            return;
+        }
+        NSLog(@"保存成功");
+    }];
+}];
+```
+
+## 功能
+
+
+#### 网络模式
+
+##### 获取所有功能列表
+```objective-c
+NSArray *features = [hswAPI getFeatures];
+NSLog(@"共有%lu大功能", (unsigned long)features.count);
+```
+
+##### 获取网络模式列表
+```objective-c
+NSArray *modes = [hswAPI getModes];
+NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
+```
+
 # 模块
 
 
@@ -260,79 +337,4 @@ typedef enum {
 @end
 ```
 
-# 接口(API)
-
-
-
-## 用户信息
-
-#### 更改手机号时，发送绑定手机验证码:
-```objective-c
-[hswAPI sendCodeForTeleNumberUpdate:@"177777777777" complete:^(hswNWResponse *response){
-    if (!response.success){
-        NSLog(@"error: %@\n", response.error.description);
-        return;
-    }
-    NSLog(@"验证码发送成功");
-}];
-```
-
-#### 更改绑定手机号
-```objective-c
-[hswAPI updateTeleNumber:@"177777777777" code:@"123456" complete:^(hswNWResponse *response){
-    if (!response.success){
-        NSLog(@"error: %@\n", response.error.description);
-        return;
-    }
-    NSLog(@"修改手机号成功");
-}];
-```
-
-## 时段控制
-
-#### 获取最新时间管控
-```objective-c
-[hswAPI getCurrentTiemSchedule:^(hswTimeSchedule *timeSchedule, hswNWError *error){
-    if (error != nil) {
-        NSLog(@"error: %@\n", error.description);
-        return;
-    }
-    //查询礼拜天0～8:00AM的时段控制状态
-    BOOL state = [timeSchedule getState:hswTSDayOfWeekSunday hourOfDay:hswTSHourOfDay0To8];
-    NSLog(@"state: %d\n", state);
-    
-    //查询礼拜五从0～2:00 PM的时段控制状态
-    NSArray *arrayOfStates = [timeSchedule getStateFrom:hswTSHourOfDay0To8 To:hswTSHourOfDay14 On:hswTSDayOfWeekFriday];
-    NSLog(@"arrayOfStates length: %lu", (unsigned long)arrayOfStates.count);
-    
-    //设置礼拜一8:00AM～9:00AM一个小时的时段管控为开放状态
-    [timeSchedule setState:YES dayOfWeek:hswTSDayOfWeekMonday hourOfDay:hswTSHourOfDay9];
-    
-    //保存设置
-    [timeSchedule save:^(hswNWResponse *response){
-        if (!response.success){
-            NSLog(@"error: %@\n", response.error.description);
-            return;
-        }
-        NSLog(@"保存成功");
-    }];
-}];
-```
-
-## 功能
-
-
-#### 网络模式
-
-##### 获取所有功能列表
-```objective-c
-NSArray *features = [hswAPI getFeatures];
-NSLog(@"共有%lu大功能", (unsigned long)features.count);
-```
-
-##### 获取网络模式列表
-```objective-c
-NSArray *modes = [hswAPI getModes];
-NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
-```
 
