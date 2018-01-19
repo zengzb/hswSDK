@@ -1,7 +1,7 @@
 # 好上网SDK IOS
 ##### 好上网致力于提供安全健康的网络环境，更多功能正在开发中，期待会更好
 
-# 使用方法(Usage)
+# 使用方法
 
 
 
@@ -23,7 +23,7 @@
 
 登录成功后，可以通过‘获取用户接口’获得用户的登记信息； 用户个人的基本信息，包括 用户名，电话号码，地址， 当前的网络模式，宽带账号和账号过期时间
 
-# 公共对象(Public Objects)
+# 模块
 
 
 
@@ -43,10 +43,77 @@
 @end
 ```
 
-如果登录失败，则可以通过hswNWResponse对象，了解具体失败的原因
+
+##### 获取用户接口:
+```objective-c
+hswUser *user = [hswAPI getUserInfo];
+```
+
+##### 查看用户是否登录:
+```objective-c
+BOOL hasAuthenticated = [hswAPI hasAuthenticated];
+```
+
+##### 更新用户最新信息:
+```objective-c
+[[hswAPI getUserInfo] updateUser:^(hswNWResponse *response){
+    if (!response.success) {
+        NSLog(@"error: %@\n", response.error.description);
+    }
+    hswUser *user = [hswAPI getUserInfo];
+    NSLog(@"username: %@\n", user.username);
+}];
+```
+
+##### 更新用户信息:
+```objective-c
+[[hswAPI getUserInfo] updateUserInfo:@"testHSW" address:@"Lake Meixi Innovation Center, Yuelu, Changsha" complete:^(hswNWResponse *response){
+    if (!response.success){
+        NSLog(@"error: %@\n", response.error.description);
+    }
+    hswUser *user = [hswAPI getUserInfo];
+    NSLog(@"username: %@\n", user.username);
+}];
+```
+
+##### 获取个人最新当前网络模式
+```objective-c
+[[hswAPI getUserInfo] getCurrentMode:^(hswModeType type, hswNWError *error){
+    if (error != nil) {
+        //如果error不为空， 则默认的type为hswModeFree即网络畅游模式
+        NSLog(@"error: %@\n", error.description);
+        return;
+    }
+    NSLog(@"当前网络模式为%u", type);
+}];
+```
+
+##### 模式切换
+```objective-c
+[[hswAPI getUserInfo] switchMode:hswModeUnheathBlock complete:^(hswNWResponse *response){
+    if (!response.success){
+        NSLog(@"error: %@\n", response.error.description);
+        return;
+    }
+    hswUser *user = [hswAPI getUserInfo];
+    NSLog(@"username: %@\n", user.currentMode);
+}];
+```
+
+##### 更改密码
+```objective-c
+//密码格式至少6位，且必须包含数字和字母
+[[hswAPI getUserInfo] changePsw:@"zzb123456" newPsw:@"zzb123456" complete:^(hswNWResponse *response){
+    if (!response.success){
+        NSLog(@"error: %@\n", response.error.description);
+        return;
+    }
+    NSLog(@"修改密码成功");
+}];
+```
 
 
-#### hswNWResponse
+#### hswNWResponse（如果网络请求失败，则可以通过hswNWResponse对象，了解具体失败的原因）
 
 
 
@@ -199,40 +266,6 @@ typedef enum {
 
 ## 用户信息
 
-
-
-#### 获取用户接口:
-```objective-c
-hswUser *user = [hswAPI getUserInfo];
-```
-
-#### 获取用户最新信息:
-```objective-c
-[hswAPI getLatestUserInfo:^(hswNWResponse *response){
-    if (!response.success) {
-        NSLog(@"error: %@\n", response.error.description);
-    }
-    hswUser *user = [hswAPI getUserInfo];
-    NSLog(@"username: %@\n", user.username);
-}];
-```
-
-#### 查看用户是否登录:
-```objective-c
-BOOL hasAuthenticated = [hswAPI hasAuthenticated];
-```
-
-#### 更新用户信息:
-```objective-c
-[hswAPI updateUserInfo:@"testHSW" address:@"Lake Meixi Innovation Center, Yuelu, Changsha" complete:^(hswNWResponse *response){
-    if (!response.success){
-        NSLog(@"error: %@\n", response.error.description);
-    }
-    hswUser *user = [hswAPI getUserInfo];
-    NSLog(@"username: %@\n", user.username);
-}];
-```
-
 #### 更改手机号时，发送绑定手机验证码:
 ```objective-c
 [hswAPI sendCodeForTeleNumberUpdate:@"177777777777" complete:^(hswNWResponse *response){
@@ -252,18 +285,6 @@ BOOL hasAuthenticated = [hswAPI hasAuthenticated];
         return;
     }
     NSLog(@"修改手机号成功");
-}];
-```
-
-#### 更改密码
-```objective-c
-//密码格式至少6位，且必须包含数字和字母
-[hswAPI changePsw:@"zzb123456" newPsw:@"zzb123456" complete:^(hswNWResponse *response){
-    if (!response.success){
-        NSLog(@"error: %@\n", response.error.description);
-        return;
-    }
-    NSLog(@"修改密码成功");
 }];
 ```
 
@@ -315,26 +336,3 @@ NSArray *modes = [hswAPI getModes];
 NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
 ```
 
-##### 获取个人最新当前网络模式
-```objective-c
-[hswAPI getCurrentMode:^(hswModeType type, hswNWError *error){
-    if (error != nil) {
-        //如果error不为空， 则默认的type为hswModeFree即网络畅游模式
-        NSLog(@"error: %@\n", error.description);
-        return;
-    }
-    NSLog(@"当前网络模式为%u", type);
-}];
-```
-
-##### 模式切换
-```objective-c
-[hswAPI switchMode:hswModeUnheathBlock complete:^(hswNWResponse *response){
-    if (!response.success){
-        NSLog(@"error: %@\n", response.error.description);
-        return;
-    }
-    hswUser *user = [hswAPI getUserInfo];
-    NSLog(@"username: %@\n", user.username);
-}];
-```
