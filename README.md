@@ -104,6 +104,95 @@ typedef enum {
 @end
 ```
 
+#### 时段控制对象(hswTimeSchedule)
+
+
+##### 礼拜 enum
+```objective-c
+/*! @brief days of week
+ */
+typedef enum {
+    hswTSDayOfWeekMonday = 0,  //周一
+    hswTSDayOfWeekTuesday,  //周二
+    hswTSDayOfWeekWednesday, //周三
+    hswTSDayOfWeekThursday, //周四
+    hswTSDayOfWeekFriday, //周五
+    hswTSDayOfWeekSaturday, //周六
+    hswTSDayOfWeekSunday //周日
+} hswTSDayOfWeek;
+```
+
+##### 时段 enum
+```objective-c
+/*! @brief hour of a day
+ */
+typedef enum {
+    hswTSHourOfDay0To8 = 0, //从凌晨0:00到早8:00
+    hswTSHourOfDay9,   //从8:00到9:00
+    hswTSHourOfDay10,  //从9:00到10:00
+    hswTSHourOfDay11,  //从10:00到11:00
+    hswTSHourOfDay12,  //从11:00到12:00
+    hswTSHourOfDay13,  //从12:00到13:00
+    hswTSHourOfDay14,  //从13:00到14:00
+    hswTSHourOfDay15,  //从14:00到15:00
+    hswTSHourOfDay16,  //从15:00到16:00
+    hswTSHourOfDay17,  //从16:00到17:00
+    hswTSHourOfDay18,  //从17:00到18:00
+    hswTSHourOfDay19,  //从18:00到19:00
+    hswTSHourOfDay20,  //从19:00到20:00
+    hswTSHourOfDay21,  //从20:00到21:00
+    hswTSHourOfDay22,  //从21:00到22:00
+    hswTSHourOfDay23,  //从22:00到23:00
+    hswTSHourOfDay24   //从23:00到0:00
+} hswTSHourOfDay;
+```
+
+###### 时段控制对象
+
+```objective-c
+/*! @brief 时段控制
+ *  矩阵结构，通过索引查询本周各个时间段的管控开放状态
+ */
+@interface hswTimeSchedule: NSObject
+
+-(instancetype)initWithRawData: (NSString *)rawDataString;
+
+/*! @brief 获取礼拜几的某个时段的管控开放状态
+ *  @param dayOfWeek 礼拜几
+ *  @param hour hourOfDay 时段
+ *  @return BOOL 该时段是否管控开放 YES->开放 NO->管控
+ */
+-(BOOL)getState: (hswTSDayOfWeek)dayOfWeek hourOfDay:(hswTSHourOfDay)hour;
+
+/*! @brief 获取礼拜几的某个时段的管控开放状态
+ *  @param startHour 从那个时段开始
+ *  @param endHour To 到哪个时段
+ *  @param dayOfWeek On 在礼拜几
+ *  @return NSArray 该时段区间的各个时段的管控开放状态 [YES->开放 NO->管控]
+ */
+-(NSArray *)getStateFrom: (hswTSHourOfDay)startHour To:(hswTSHourOfDay)endHour On:(hswTSDayOfWeek)dayOfWeek;
+
+/*! @brief 设置礼拜几的某个时段的管控开放状态
+ *  @param dayOfWeek 礼拜几
+ *  @param hour hourOfDay 时段
+ */
+-(void)setState:(BOOL)Status dayOfWeek:(hswTSDayOfWeek)dayOfWeek hourOfDay:(hswTSHourOfDay)hour;
+
+/*! @brief 保存设置
+ */
+-(void)save:(void(^)(hswNWResponse *response))complete;
+
+/*! @brief 重置本周所有时段设置
+ */
+-(void)resetAll;
+
+/*! @brief 重置礼拜几的所有时段设置
+ * @param dayOfWeek 礼拜几
+ */
+-(void)reset: (hswTSDayOfWeek)dayOfWeek;
+@end
+```
+
 # 接口(API)
 
 
@@ -179,88 +268,6 @@ BOOL hasAuthenticated = [hswAPI hasAuthenticated];
 ```
 
 ## 时段控制
-
-#### 时段控制对象
-
-```objective-c
-/*! @brief days of week
- */
-typedef enum {
-    hswTSDayOfWeekMonday = 0,  //周一
-    hswTSDayOfWeekTuesday,  //周二
-    hswTSDayOfWeekWednesday, //周三
-    hswTSDayOfWeekThursday, //周四
-    hswTSDayOfWeekFriday, //周五
-    hswTSDayOfWeekSaturday, //周六
-    hswTSDayOfWeekSunday //周日
-} hswTSDayOfWeek;
-
-
-/*! @brief hour of a day
- */
-typedef enum {
-    hswTSHourOfDay0To8 = 0, //从凌晨0:00到早8:00
-    hswTSHourOfDay9,   //从8:00到9:00
-    hswTSHourOfDay10,  //从9:00到10:00
-    hswTSHourOfDay11,  //从10:00到11:00
-    hswTSHourOfDay12,  //从11:00到12:00
-    hswTSHourOfDay13,  //从12:00到13:00
-    hswTSHourOfDay14,  //从13:00到14:00
-    hswTSHourOfDay15,  //从14:00到15:00
-    hswTSHourOfDay16,  //从15:00到16:00
-    hswTSHourOfDay17,  //从16:00到17:00
-    hswTSHourOfDay18,  //从17:00到18:00
-    hswTSHourOfDay19,  //从18:00到19:00
-    hswTSHourOfDay20,  //从19:00到20:00
-    hswTSHourOfDay21,  //从20:00到21:00
-    hswTSHourOfDay22,  //从21:00到22:00
-    hswTSHourOfDay23,  //从22:00到23:00
-    hswTSHourOfDay24   //从23:00到0:00
-} hswTSHourOfDay;
-
-
-/*! @brief 时段控制
- *  矩阵结构，通过索引查询本周各个时间段的管控开放状态
- */
-@interface hswTimeSchedule: NSObject
-
--(instancetype)initWithRawData: (NSString *)rawDataString;
-
-/*! @brief 获取礼拜几的某个时段的管控开放状态
- *  @param dayOfWeek 礼拜几
- *  @param hour hourOfDay 时段
- *  @return BOOL 该时段是否管控开放 YES->开放 NO->管控
- */
--(BOOL)getState: (hswTSDayOfWeek)dayOfWeek hourOfDay:(hswTSHourOfDay)hour;
-
-/*! @brief 获取礼拜几的某个时段的管控开放状态
- *  @param startHour 从那个时段开始
- *  @param endHour To 到哪个时段
- *  @param dayOfWeek On 在礼拜几
- *  @return NSArray 该时段区间的各个时段的管控开放状态 [YES->开放 NO->管控]
- */
--(NSArray *)getStateFrom: (hswTSHourOfDay)startHour To:(hswTSHourOfDay)endHour On:(hswTSDayOfWeek)dayOfWeek;
-
-/*! @brief 设置礼拜几的某个时段的管控开放状态
- *  @param dayOfWeek 礼拜几
- *  @param hour hourOfDay 时段
- */
--(void)setState:(BOOL)Status dayOfWeek:(hswTSDayOfWeek)dayOfWeek hourOfDay:(hswTSHourOfDay)hour;
-
-/*! @brief 保存设置
- */
--(void)save:(void(^)(hswNWResponse *response))complete;
-
-/*! @brief 重置本周所有时段设置
- */
--(void)resetAll;
-
-/*! @brief 重置礼拜几的所有时段设置
- * @param dayOfWeek 礼拜几
- */
--(void)reset: (hswTSDayOfWeek)dayOfWeek;
-@end
-```
 
 #### 获取最新时间管控
 ```objective-c
