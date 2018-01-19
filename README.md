@@ -26,31 +26,18 @@
 
 # 接口
 
-
-
 ## 用户信息
 
-##### 更改手机号时，发送绑定手机验证码:
+##### 获取用户接口:
 ```objective-c
-[hswAPI sendCodeForTeleNumberUpdate:@"177777777777" complete:^(hswNWResponse *response){
-    if (!response.success){
-        NSLog(@"error: %@\n", response.error.description);
-        return;
-    }
-    NSLog(@"验证码发送成功");
-}];
+hswUser *user = [hswAPI getUserInfo];
 ```
 
-##### 更改绑定手机号
+##### 查看用户是否登录:
 ```objective-c
-[hswAPI updateTeleNumber:@"177777777777" code:@"123456" complete:^(hswNWResponse *response){
-    if (!response.success){
-        NSLog(@"error: %@\n", response.error.description);
-        return;
-    }
-    NSLog(@"修改手机号成功");
-}];
+BOOL hasAuthenticated = [hswAPI hasAuthenticated];
 ```
+
 
 ## 时段控制
 
@@ -85,14 +72,13 @@
 
 ## 功能
 
-
-#### 网络模式
-
 ##### 获取所有功能列表
 ```objective-c
 NSArray *features = [hswAPI getFeatures];
 NSLog(@"共有%lu大功能", (unsigned long)features.count);
 ```
+
+## 网络模式
 
 ##### 获取网络模式列表
 ```objective-c
@@ -120,15 +106,26 @@ NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
 @end
 ```
 
-
-##### 获取用户接口:
+##### 更改手机号时，发送绑定手机验证码:
 ```objective-c
-hswUser *user = [hswAPI getUserInfo];
+[[hswAPI getUserInfo] sendCodeForTeleNumberUpdate:@"177777777777" complete:^(hswNWResponse *response){
+    if (!response.success){
+        NSLog(@"error: %@\n", response.error.description);
+        return;
+    }
+    NSLog(@"验证码发送成功");
+}];
 ```
 
-##### 查看用户是否登录:
+##### 更改绑定手机号
 ```objective-c
-BOOL hasAuthenticated = [hswAPI hasAuthenticated];
+[[hswAPI getUserInfo] updateTeleNumber:@"177777777777" code:@"123456" complete:^(hswNWResponse *response){
+    if (!response.success){
+        NSLog(@"error: %@\n", response.error.description);
+        return;
+    }
+    NSLog(@"修改手机号成功");
+}];
 ```
 
 ##### 更新用户最新信息:
