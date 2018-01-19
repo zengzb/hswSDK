@@ -30,7 +30,7 @@
 
 ## 用户信息
 
-#### 更改手机号时，发送绑定手机验证码:
+##### 更改手机号时，发送绑定手机验证码:
 ```objective-c
 [hswAPI sendCodeForTeleNumberUpdate:@"177777777777" complete:^(hswNWResponse *response){
     if (!response.success){
@@ -41,7 +41,7 @@
 }];
 ```
 
-#### 更改绑定手机号
+##### 更改绑定手机号
 ```objective-c
 [hswAPI updateTeleNumber:@"177777777777" code:@"123456" complete:^(hswNWResponse *response){
     if (!response.success){
@@ -54,7 +54,7 @@
 
 ## 时段控制
 
-#### 获取最新时间管控
+##### 获取最新时间管控
 ```objective-c
 [hswAPI getCurrentTiemSchedule:^(hswTimeSchedule *timeSchedule, hswNWError *error){
     if (error != nil) {
