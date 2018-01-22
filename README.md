@@ -108,7 +108,8 @@ NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
 
 ##### 更改手机号时，发送绑定手机验证码:
 ```objective-c
-[[hswAPI getUserInfo] sendCodeForTeleNumberUpdate:@"177777777777" complete:^(hswNWResponse *response){
+hswUser *user = [hswAPI getUserInfo];
+[user sendCodeForTeleNumberUpdate:@"177777777777" complete:^(hswNWResponse *response){
     if (!response.success){
         NSLog(@"error: %@\n", response.error.description);
         return;
@@ -119,7 +120,8 @@ NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
 
 ##### 更改绑定手机号
 ```objective-c
-[[hswAPI getUserInfo] updateTeleNumber:@"177777777777" code:@"123456" complete:^(hswNWResponse *response){
+hswUser *user = [hswAPI getUserInfo];
+[user updateTeleNumber:@"177777777777" code:@"123456" complete:^(hswNWResponse *response){
     if (!response.success){
         NSLog(@"error: %@\n", response.error.description);
         return;
@@ -130,7 +132,8 @@ NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
 
 ##### 更新用户最新信息:
 ```objective-c
-[[hswAPI getUserInfo] updateUser:^(hswNWResponse *response){
+hswUser *user = [hswAPI getUserInfo];
+[user updateUser:^(hswNWResponse *response){
     if (!response.success) {
         NSLog(@"error: %@\n", response.error.description);
     }
@@ -141,7 +144,8 @@ NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
 
 ##### 更新用户信息:
 ```objective-c
-[[hswAPI getUserInfo] updateUserInfo:@"testHSW" address:@"Lake Meixi Innovation Center, Yuelu, Changsha" complete:^(hswNWResponse *response){
+hswUser *user = [hswAPI getUserInfo];
+[user updateUserInfo:@"testHSW" address:@"Lake Meixi Innovation Center, Yuelu, Changsha" complete:^(hswNWResponse *response){
     if (!response.success){
         NSLog(@"error: %@\n", response.error.description);
     }
@@ -152,7 +156,8 @@ NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
 
 ##### 获取个人最新当前网络模式
 ```objective-c
-[[hswAPI getUserInfo] getCurrentMode:^(hswModeType type, hswNWError *error){
+hswUser *user = [hswAPI getUserInfo];
+[user getCurrentMode:^(hswModeType type, hswNWError *error){
     if (error != nil) {
         //如果error不为空， 则默认的type为hswModeFree即网络畅游模式
         NSLog(@"error: %@\n", error.description);
@@ -164,7 +169,8 @@ NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
 
 ##### 模式切换
 ```objective-c
-[[hswAPI getUserInfo] switchMode:hswModeUnheathBlock complete:^(hswNWResponse *response){
+hswUser *user = [hswAPI getUserInfo];
+[user switchMode:hswModeUnheathBlock complete:^(hswNWResponse *response){
     if (!response.success){
         NSLog(@"error: %@\n", response.error.description);
         return;
@@ -177,7 +183,8 @@ NSLog(@"共有%lu大网络模式", (unsigned long)modes.count);
 ##### 更改密码
 ```objective-c
 //密码格式至少6位，且必须包含数字和字母
-[[hswAPI getUserInfo] changePsw:@"zzb123456" newPsw:@"zzb123456" complete:^(hswNWResponse *response){
+hswUser *user = [hswAPI getUserInfo];
+[user changePsw:@"zzb123456" newPsw:@"zzb123456" complete:^(hswNWResponse *response){
     if (!response.success){
         NSLog(@"error: %@\n", response.error.description);
         return;
