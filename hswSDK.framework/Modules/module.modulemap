@@ -1,0 +1,6 @@
+framework module hswSDK {
+  umbrella header "hswSDK.h"
+
+  export *
+  module * { export * }
+}
