@@ -43,7 +43,7 @@ BOOL hasAuthenticated = [hswAPI hasAuthenticated];
 
 ##### 获取最新时间管控
 ```objective-c
-[hswAPI getCurrentTiemSchedule:^(hswTimeSchedule *timeSchedule, hswNWError *error){
+[hswAPI getCurrentTimeSchedule:^(hswTimeSchedule *timeSchedule, hswNWError *error){
     if (error != nil) {
         NSLog(@"error: %@\n", error.description);
         return;
